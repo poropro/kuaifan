@@ -1,0 +1,13 @@
+.daohang{background: #72a1bf;padding: 2px 5px;color: #fff; font-size: 14px;}
+.daohang a{ color:#fff; }
+
+.m_title{background: url(../images/m_title.png) repeat-x; height:30px; padding-left:5px; font-weight: bold; font-size: 14px;line-height: 30px;}
+.pnpage {padding: 2px 5px;}
+.pnpage img{padding-right: 3px;}
+
+/*底部*/
+.footernews{ text-align:center; padding:10px 0; border-top:1px solid #b94141; background:#efefef;}
+.footernews a{}
+.footernews a.fontwt{ font-weight:bold;}
+.footernews p.color-1{ color:#a81212;}
+.footernews p.color-2{ color:#414141;}

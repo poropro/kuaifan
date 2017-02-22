@@ -1,0 +1,27 @@
+.key {
+	background: #ecf5fc;
+	padding: 8px;
+}
+.menu {
+	color: #333;
+	border: 1px solid #c9e1ed;
+	border-top: 1px solid #0170b8;
+	padding: 2px 5px;
+	background: #d4e5f9;
+}
+.menu a{
+	padding: 2px;
+}
+.cbnlist p.ln0{
+	background: #FCFCFC;
+	border-bottom: 1px #e6e6e6 solid;
+	line-height: 25px;
+}
+.cbnlist p.ln1{
+	background: #EEE;
+	border-bottom: 1px #e6e6e6 solid;
+	line-height: 25px;
+}
+.pnpage{
+	padding:4px 8px;
+}

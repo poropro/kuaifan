@@ -1,0 +1,82 @@
+.sch_new {
+	margin: 0;
+	height: 50px;
+}
+.schWrap {
+	background-image:-moz-linear-gradient(#fff, #fff 50%, #a9a9a9 50%, #a9a9a9);
+	background-image:-webkit-linear-gradient(#fff, #fff 50%, #a9a9a9 50%, #a9a9a9);
+	background-image:-o-linear-gradient(#fff, #fff 50%, #a9a9a9 50%, #a9a9a9);
+	background-image:linear-gradient(#fff, #fff 50%, #a9a9a9 50%, #a9a9a9);
+	-webkit-background-size:1px 1px;
+	-moz-background-size:1px 1px;
+	background-size:1px 1px;
+	background-repeat:repeat-x;
+	background-position:left bottom;
+	background-color:#fff;
+	position:fixed;
+	z-index:199;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+	width:100%;
+	top:0;
+	left:0;
+	padding:8px 10px 12px
+}
+.schWrap * {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+.schWrap form {
+	position:relative;
+	padding-right:50px;
+	background:#e4e5e7;
+	border-radius:6px;
+	display:block;
+}
+.schWrap .key {
+	font-size:16px;
+	line-height:20px;
+	display:block;
+	width:100%;
+	padding:5px 40px 5px 10px;
+	background:0
+}
+.schWrap .submit {
+	width:40px;
+	position:absolute;
+	top:0;
+	right:0;
+	height:100%;
+	text-align:center;
+	background:0
+}
+.schWrap .submit .i {
+	background:url(../images/sousuo.png) no-repeat center;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	background-size:100% 100%;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin:0
+}
+.schWrap .stype {
+	display:none;
+	width:auto;
+	height:auto;
+	position:absolute;
+	top:0;
+	right:0;
+	border-radius: 6px;
+	padding:3px 5px;
+	background: #fff;
+	border: 1px solid #cccccc;
+	box-shadow: 3px 3px 3px #B2B2B2;
+}
+.schWrap .stype a {
+	display: block;
+	font-size:14px;
+	line-height:26px;
+}

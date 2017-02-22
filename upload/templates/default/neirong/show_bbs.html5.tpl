@@ -1,0 +1,452 @@
+{#$__seo_head="
+  <link type='text/css' rel='stylesheet' href='{#$smarty.const.CSS_PATH#}v3_xiazai.css' />
+	<link type='text/css' rel='stylesheet' href='{#$smarty.const.CSS_PATH#}v3_list.css' />
+	<link type='text/css' rel='stylesheet' href='{#$smarty.const.CSS_PATH#}v3_formbox.css' />
+	<link type='text/css' rel='stylesheet' href='{#$smarty.const.CSS_PATH#}v3_bqbox.css' />
+	<script type='text/javascript' src='{#$smarty.const.JS_PATH#}jquery_1.4.2.js'></script>
+	<script type='text/javascript' src='{#$smarty.const.JS_PATH#}jquery.cookie.js'></script>
+	<script type='text/javascript' src='{#$smarty.const.JS_PATH#}jquery.alert.js'></script>
+	<script type='text/javascript' src='{#$smarty.const.JS_PATH#}bqbox.js'></script>
+"#}
+{#include file="common/header.tpl" title={#$SEO.title#} seo={#$SEO#}#}
+
+<div id="text_set" style="display:none" class="text_set">
+    <div class="text_table">
+        <span id="fontSizeSmall">A-</span>
+        <span id="fontSizeNormal">A</span>
+        <span id="fontSizeBig">A+</span> 
+		<span> </span>
+    </div>
+</div>
+
+
+<div class="sub_nav">
+	<div class="sub_nav_l">{#get_pos($M.id)#}</div>    
+	<div class="sub_nav_r"><img onclick="clickme()" src="{#$smarty.const.IMG_PATH#}shezhi.png" width="21" height="21"></div>
+	<div style="clear:both;"></div>
+</div>
+
+
+<div class="title_text">
+  <h3>{#$V.title#}<span>({#nocache#}{#$V.read#}{#/nocache#})</span></h3>
+	{#if !$V.sysadd#}
+		{#$louzhu = get_to_username($V.username)#}
+		<div class="louzhu">
+			<div class="tx"><img src="{#kuaifan touxiang=$louzhu.userid size='微'#}?t={#$TIME2#}"/></div>
+			<div class="zl">
+				<div class="info">
+					楼主: <a href="{#kuaifan getlinks='sid|vs'#}&amp;m=huiyuan&amp;c=ziliao&amp;username={#$V.username#}" class="author">{#$louzhu|colorname#}</a>
+				</div>
+				<div class="time">{#$V.inputtime|date_format:"%Y-%m-%d %H:%M"#}</div>
+			</div>
+			<div class="hf"><a href="#commentCount" class="commentCount">{#$V.reply#}</a></div>
+		</div>
+	{#else#}
+		<p>
+			{#$V.inputtime|date_format:"%Y-%m-%d %H:%M"#}
+			<a href="#commentCount" class="commentCount">{#$V.reply#}</a>
+		</p>
+	{#/if#}
+</div>
+
+<div class="main_text" id="mainText">
+	{#if $smarty.get.p<2#}
+	  {#$F=wenjian('tupian')#}
+	  {#if $F#}  
+		<div class="jietu">
+		  <div id='slider' class='swipe'>
+			<div class='swipe-wrap'>
+			  {#foreach from=$F.list item=list#}
+				<figure>
+				  <div class='wrap'>
+					<div class='image'><img data-src="{#$list.allurl#}"/></div>
+				  </div>
+				</figure>
+			  {#/foreach#}        
+			</div>
+		  </div>
+		  <nav>
+			<ul id='position'></ul>
+		  </nav>
+		</div>
+		<script src='{#$smarty.const.JS_PATH#}xiazai.js'></script>
+		<script>
+		  var sliders = document.getElementById('slider');
+		  var positions = document.getElementById('position');
+		  var slidersnum = sliders.children[0].children.length;
+		  for (i=0; i<slidersnum; i++) {
+			positions.innerHTML = positions.innerHTML + "<li data-num='"+i+"'></li>";
+		  }
+		  $("ul#position li").click(function(){
+			  if ($(this).attr("data-num")) slider.slide(parseInt($(this).attr("data-num")));
+		  });
+		  var slider = Swipe(sliders, {
+			auto : 0,
+			continuous : true,
+			callback : function(pos) {
+			  var i = bullets.length;
+			  while (i--) {
+				bullets[i].className = ' ';
+			  }
+			  bullets[pos].className = 'on';
+			}
+		  });
+		  var bullets = positions.getElementsByTagName('li');
+		  bullets[0].className = 'on';
+		</script>
+	  {#elseif $V.thumb#}
+		<div class="thumb">{#wap_img($V.thumb[0],320,0)#}</div>
+	  {#/if#}  
+	{#/if#}
+	
+	{#$content#}
+
+	<div class="bbstype">
+		{#if $type.0=="yin"#}
+			<b>[隐藏部分]</b><br/>
+			{#get_yin($V.id, $V.catid, $V.username, $type.1.0)#}<br/>
+		{#/if#}
+		{#if $type.0=="pai"#}
+			<b>[派币贴]</b><br/>
+			总派发:{#$type.1.1#}{#$type.1.0|money_type#},回复奖励:{#$type.1.2#},剩余:{#$type.1.1-$type.1.3#}。<br/>
+		{#/if#}
+		{#if $type.0=="xuan"#}
+			<b>[悬赏贴]</b><br/>
+			悬赏:{#$type.1.1#}{#$type.1.0|money_type#},有效期:{#$type.1.2#}天。<br/>
+			{#if $type.1.3#}
+				最佳答案:{#$type.1.3|get_pl#}<br/>
+			{#/if#}
+		{#/if#}
+		{#if $type.0=="mai"#}
+			<b>[收费内容]</b><br/>
+			{#get_mai($type.1, $V.username)#}<br/>
+		{#/if#}
+	</div>
+	
+	{#if $smarty.get.p<2#}
+		{#$F=wenjian('downfile')#}
+		{#if $F#}
+			<div class="fj_list">
+				<div class="ft">附件列表({#$F.count#}个)：</div>
+				{#foreach from=$F.list item=list#}
+					<div class="fn">
+						<p class="down-name">{#$list.name#}</p>
+						{#if $list.body#}<p class="down-body">{#$list.body#}</p>{#/if#}
+						<span class="down-size">{#$list.size#}</span>
+						<span class="down-btn">下载</span>
+						<a class="down-link" href="{#$list.downurl#}"></a>
+					</div>
+				{#/foreach#}
+			</div>
+		{#/if#}
+	{#/if#}
+</div>
+
+{#if $V.pagenumber > 1#}
+	<div class="look_alltext">
+	{#if $smarty.get.l=='s'#}
+		<a href="{#kuaifan getlink='l'#}">分页查看</a>
+	{#else#}
+		{#if $V.page<$V.pagenumber#}
+			<a href="{#kuaifan getlink='l'#}&amp;l=s">余下全文</a>
+		{#else#}
+			<a href="#" style="color:#cccccc;">余下全文</a>
+		{#/if#}
+		<span>
+			{#if $V.page>1#}
+				<a class="prev_page" href="{#$pageurls[$V.page-1]#}">上一页</a>
+			{#/if#}
+			<em>{#$V.page#}/{#$V.pagenumber#}</em>
+			{#if $V.page<$V.pagenumber#}
+				<a class="next_page" href="{#$pageurls[$V.page+1]#}">下一页</a>
+			{#/if#}
+		</span>
+	{#/if#}
+	</div>
+{#/if#}
+	
+
+{#if ($M.setting.bbs_banzhu > 0 && in_array($smarty.const.US_USERID,$bbs_bzarr)) || $V.username==$smarty.const.US_USERNAME#}
+	<div align="center">
+			<a href="{#kuaifan getlink='c'#}&amp;c=bbsgl">【管理帖子】</a><br/>
+	</div>	
+{#/if#}
+
+
+<div class="articleshare">
+	{#if $louzhu.qianming#}
+		<div class="qianming">
+			签名:{#$louzhu|qianming#}
+		</div>	
+	{#/if#}
+	<div class="fenxiang">
+		分享: <a href="javascript:void(0);" onclick="postToQq();">腾讯微博</a>
+		<a href="javascript:void(0);" onclick="postToSina();">新浪微博</a>
+		<a href="javascript:void(0);" onclick="postToQzone();">QQ空间</a>
+		<script type="text/javascript">
+		function postToQq(){
+			var _t = encodeURI(document.title);
+			var _url = encodeURIComponent(document.location);
+			var _appkey = encodeURI("801cf76d3cfc44ada52ec13114e84a96");
+			var _pic = encodeURIComponent("{#$V.thumb[0]#}");
+			var _site = encodeURIComponent("{#$KUAIFAN.site_name#}  {#$KUAIFAN.site_domain#}");
+			var _from = 'kuaifan';
+			var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t+'&from='+_from;
+			window.open( _u);
+		}
+		function postToSina(){
+			var _url = encodeURIComponent(document.location.href);
+			var _title = encodeURIComponent("分享:{#$V.title#}");
+			var _u = 'http://v.t.sina.com.cn/share/share.php?url='+_url+'&title='+_title+'&netType=html5';
+			window.open(_u);
+		}
+		function postToQzone(){
+			var _url = encodeURIComponent(document.location.href);
+			var _site = encodeURIComponent("{#$KUAIFAN.site_name#}  {#$KUAIFAN.site_domain#}");
+			var _title = encodeURIComponent("分享:{#$V.title#}");
+			var _pics = "";
+			var _from = 'kuaifan';
+			var _u = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+_url+'&site='+_site+'&title='+_title+'&pics='+_pics+'&from='+_from;
+			window.open(_u);
+		}
+		</script>
+	</div>	
+</div>	
+
+	
+
+	
+{#if $Q#}
+	<div class="xq_news">
+		{#foreach from=$Q item=list#}
+			{#if $list.n%5 == 0#}</div><div class="xq_news">{#/if#}
+			<a href="javascript:xqnew('{#kuaifan getlink='xinqing'#}&amp;xinqing={#$list.k#}','{#$list.n#}');"><img src="{#$smarty.const.IMG_PATH#}{#$list.pic#}" alt="{#$list.name#}"/>(<span id="xq{#$list.n#}">{#$list.num#}</span>)</a>
+		{#/foreach#}
+	</div>
+{#/if#}
+
+
+<div class="text_comment" id="commentText">
+  <div class="com_num"><span>跟帖</span>
+  <a class="commentCount" id="commentCount">{#$V.reply#}</a>
+  <span style="float:right; font-size:12px; font-weight:normal; color:#8e8e8e;">文明用语，文明上网</span> </div>
+  <div class="form_text form_bq">
+    <form action="{#get_link()#}" method="post" onSubmit="return beforeSubmit(this);">
+      <textarea class="textarea" name="pl" cols="" rows="" id="commentTextarea">我来评论...</textarea>
+      <input class="ipt_text_submit" name="dosubmit" type="submit" id="button" value="提交">
+	  {#if $M.setting.pinglun_format_num#}
+	  <a href="{#kuaifan getlink='c|a'#}&amp;c=pinglun&amp;a=upfile" class="ipt_text_submit fujian">附件</a>
+	  {#/if#}
+	  <div id="bqico" class="bqico" onClick="bqico('commentTextarea',this.id);"></div>
+	  <input type="hidden" name="go_url" value="{#get_url()|urlencode#}" />
+    </form>
+  </div>
+  <div class="com_title">
+    <h3 class="jc_comment"><a href="{#kuaifan getlink='shoucang'#}&amp;shoucang=1">添加到收藏夹</a>精彩评论</h3>
+    <ul class="com_list" id="commentList">
+		{#kuaifan_neirong_pinglun set="列表名:lists,显示数目:5,状态:1,标题长度:500" where="commentid='neirong_{#$V.catid#}_{#$V.id#}_{#$KUAIFAN.site#}'"#}
+		{#foreach from=$lists item=list#}
+			<li>
+				<div class="phone_pp clearfix">
+					<div class="louceng">
+					  <div class="avatar"><img src="{#kuaifan touxiang=$list.userid size='微'#}?t={#$TIME2#}"/></div>
+					  <div class="info">
+						<div class="zz">
+							{#if $list.userid>0#}<a href="{#kuaifan getlinks='vs|sid'#}&amp;m=huiyuan&amp;c=ziliao&amp;userid={#$list.userid#}">{#$list.username|colorname#}</a>{#else#}{#$list.username#}{#/if#}
+						</div>
+						<div class="tt">
+						{#$list.creat_at|date_format:"%Y-%m-%d %H:%M:%S"#}
+						</div>
+					  </div>
+					  <div class="zan"><a name="upport" data="{#$list.id#}" id="up{#$list.id#}" style="cursor:pointer;">{#$list.support#}</a>,<a href="javascript:showformbox({#$list.id#});">回</a></div>
+					</div>
+				</div>
+				<div class="content_text">
+					<span>{#$list.content#}</span>
+					{#if $type.0=="xuan" && !$type.1.3 && $smarty.const.US_USERNAME == $V.username#}
+						<a href="{#kuaifan getlink='c'#}&amp;c=zuijia&amp;rid={#$list.id#}">(设为最佳回复)</a> 
+					{#/if#}
+					{#if $M.setting.pinglun_guest_del && $list.userid>0 && ($list.userid==$smarty.const.US_USERID || in_array($smarty.const.US_USERID,$bbs_bzarr))#}
+						<a href="{#kuaifan getlink='c'#}&amp;c=huifu&amp;del=1&amp;rid={#$list.id#}">[删除]</a>
+					{#/if#}
+				</div>
+			</li>
+		{#foreachelse#}
+			<li>没有任何评论。</li>
+		{#/foreach#}
+    </ul>
+  </div>
+  <div class="all_com"> <a href="{#kf_url('neirongreply')#}">全部跟帖</a> </div>
+</div>
+
+
+<div class="sp-jctu">
+	<h3><span> 活跃推荐 </span></h3>
+	<ul>
+	{#kuaifan_neirong set="列表名:lists,显示数目:8,模型:{#$M.module#},分类:{#$M.id#},状态:1,标题长度:30,填补字符:...,排序:readtime DESC" where="id!={#$V.id#}"#}
+	{#foreach from=$lists item=list#}
+		<li><p><a href="{#$list.url#}">{#$list.title#}</a></p></li>
+	{#foreachelse#}
+		<li><p>暂无任何推荐</p></li>
+	{#/foreach#}
+	</ul>
+</div>
+	  
+
+<div class="subn-nav">
+	{#get_pos($M.id)#}
+</div>
+
+<div class="form-box-mask" id="form-box-mask">
+	<form data-url="{#kuaifan getlink='c'#}&amp;c=huifu&amp;rid=" id="form-box-form" method="post">
+		<div class="form-box form-bqf">
+			<div class="form-hd">
+				<b class="item" onclick="hidformbox();">取消</b>
+				<b class="item">回复</b>
+				<b class="item" onclick="subformbox();">提交</b>
+			</div>
+			<div class="form-bd">
+				<textarea class="txt-area" id="txt-area" name="pl" placeholder="我也说一句..."></textarea>
+			</div>
+			<div id="bqico-area" class="bqico" onClick="bqico('txt-area',this.id);"></div>
+		</div>
+		<input type="hidden" name="dosubmit" value="1" />
+		<input type="hidden" name="go_url" value="{#get_url()|urlencode#}" />
+	</form>
+</div>
+<div id="back-top" style="display: block;"><a href="#top"><span></span></a></div>
+
+
+<script>
+var upportUrl = "{#get_link('upport', '&', 0, 0, 1)#}";
+</script>
+{#literal#} 
+<script>
+var hftemp = '';
+$(document).ready(function(){
+	//字体设置部分
+	$('#fontSizeSmall').click(function(){
+		var fs = parseInt($('#mainText').css('font-size')); if (fs < 12) fs = 12;
+		$('#mainText').css('font-size', (fs - 2) + 'px');
+		$.cookie('mainTextfontsize', fs - 2)
+	});
+
+	$('#fontSizeNormal').click(function(){
+		$('#mainText').css('font-size', '18px');
+		$.cookie('mainTextfontsize', 18)
+	});
+
+	$('#fontSizeBig').click(function(){
+		var fs = parseInt($('#mainText').css('font-size')); if (fs < 12) fs = 12;
+		$('#mainText').css('font-size', (fs + 2) + 'px');
+		$.cookie('mainTextfontsize', fs + 2)
+	});
+	var mainTextfontsize = parseInt($.cookie('mainTextfontsize')); 
+	if(!isNaN(mainTextfontsize)){
+		$('#mainText').css('font-size', mainTextfontsize + 'px');
+	}
+
+	// hide #back-top first
+	$("#back-top").hide();
+	$(function () {
+		$(window).scroll(function () {
+		  if ($(this).scrollTop() > 200) { 
+			$('#back-top').fadeIn();
+		  } else { 
+			$('#back-top').fadeOut();
+		  }
+		});
+		// scroll body to 0px on click
+		$('#back-top a').click(function () {
+		  $('body,html').animate({
+			scrollTop: 0
+		  }, 800);
+		  return false;
+		});
+	});
+	$("a[name=upport]").each(function(){
+		$(this).click(function(){ 
+			upport($(this).attr("data"));
+		});
+	});
+	$('#commentTextarea').focus(function(){
+		$(this).html('');
+		$(this).css('color','#3c3c3c');
+		//$(this).css('height', '80px');
+	});
+	$('#commentTextarea').blur(function(){
+		//$('#commentTextarea').css('height', '38px');
+	});
+});
+function beforeSubmit(form){
+	if (form.pl.value=='' || form.pl.value=='我来评论...'){
+		$.alert('请输入要评论的内容');
+		form.pl.focus();
+		return false;
+	}
+	return true;
+}
+function xqnew(url,id){
+	$.ajax({
+		type : "GET",
+		url : url,
+		success:function(datas){
+		  if (datas.indexOf('#ok:') > 0){
+			$('#xq'+id).text(Number($('#xq'+id).text()) + 1);
+		  }
+		  if (datas.indexOf('#to:') > 0){
+			$.alert("你已经表达过心情了，保持平常心有益身体健康！");
+		  }
+	   }
+	  //errors:
+	});
+}
+
+function upport(id){
+	$.ajax({
+		type : "GET",
+		url : upportUrl + "&upport=" + id,
+		success:function(datas){
+		  if (datas.indexOf('ok:') > 0){
+			$('#up'+id).text(Number($('#up'+id).text()) + 1);
+		  }
+		  if (datas.indexOf('#to:') > 0){
+			$.alert("你已经支持过了！");
+		  }
+	   }
+	  //errors:
+	});
+}
+function clickme(){
+	var text_set = document.getElementById("text_set");
+	if(text_set.style.display =="none"){
+		text_set.style.display ="block"; 
+	}else{
+		text_set.style.display ="none";
+	}
+}
+
+/*评论漂浮框js*/
+function showformbox(id){
+	$('#form-box-mask').show();
+	$('#form-box-form').attr('action', $('#form-box-form').attr('data-url')+id);
+}
+function hidformbox(){
+	$('#form-box-mask').hide();
+}
+function subformbox(){
+	var formpl = $('#txt-area');
+	var formplval = formpl.val();
+	if (formplval=='' || formplval=='我来评论...' || formplval.length < 2){
+		$.alert('评论内容不得少于2个字！');
+		formpl.focus();
+		return false;
+	}
+	$('#form-box-form').submit();
+}
+</script>
+{#/literal#}
+
+{#kuaifan tongji="阅读" get=$getarr#}
+{#include file="common/footerb.html5.tpl"#}
+{#include file="common/footer.tpl"#}

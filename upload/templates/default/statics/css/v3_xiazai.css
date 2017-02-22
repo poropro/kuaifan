@@ -1,0 +1,94 @@
+@charset "utf-8";
+.main_text {
+	padding-top: 0px;
+}
+.jietu {
+	padding: 0 5px;
+}
+/* Swipe 2 required styles */
+.swipe {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	visibility: hidden;
+	position: relative;
+}
+
+.swipe-wrap {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+}
+
+.swipe-wrap>figure {
+	margin: 0px;
+	float: left;
+	width: 100%;
+	height: auto;
+	position: relative;
+}
+
+#position {
+	list-style: none outside none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+#position li {
+	background: none repeat scroll 0 0 #cccccc;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 0 1px 3px #cccccc inset, 0 0 1px 1px #cccccc;
+	cursor: pointer;
+	display: inline-block;
+	height: 10px;
+	margin: 0 3px;
+	width: 10px;
+}
+
+#position li.on {
+	background-color: #1293DC;
+	background-image: -moz-linear-gradient(center top, #1293DC, #0F6297);
+	box-shadow: 0 1px 3px -1px #28B4EA inset, 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#position {
+	list-style: none outside none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+nav {
+	display: block;
+	margin: 7px auto 0;
+	position: relative;
+}
+
+#slider {
+	margin-top: 0px;
+}
+
+#slider figure {
+	display: block;
+}
+
+#slider figure div.wrap {
+	display: block;
+	height: auto;
+	margin: 0px;
+	position: relative;
+}
+
+#slider figure div.image {
+	border-radius: 5px 5px 5px 5px;
+	display: block;
+	width: 100%;
+	height: auto;
+	margin: 0;
+}
+#slider figure div.image img{
+	border-radius: 8px;
+}
+/* END required styles */

@@ -1,0 +1,11 @@
+#
+# robots.txt for KuaiFanCMS
+#
+User-agent: * 
+Disallow: /caches
+Disallow: /include
+Disallow: /install
+Disallow: /kuaifan
+Disallow: /templates
+Disallow: /admin.php
+Disallow: /smsreg.php

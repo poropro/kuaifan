@@ -1,0 +1,17 @@
+﻿*,html,body{margin:0; padding:0;}
+body,input{line-height:28px; font-size:16px; color:#000;}
+body,html{overflow-x:hidden; }
+p,div,img {margin:0; padding:0;}
+
+input{ -webkit-appearance: none;border-radius: 0px; height:20px;line-height:20px; font-size:15px;}
+form{display:inline;}
+img {max-width:300px;border:0;}
+li,ul,ol{ list-style:none;}
+a:link,a:visited {text-decoration:none; color:#004299;}
+a:hover,a:active,a:focus {color:#2263a5; text-decoration:none;}
+
+/* */
+input.ipt-btn{ padding:2px;}
+input#dbcharset{ -webkit-appearance:radio;}
+div#installmessage{ margin:5px;}
+div#hiddenop{ margin:5px;}

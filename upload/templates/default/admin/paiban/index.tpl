@@ -1,0 +1,1 @@
+{#include file="admin/paiban/info.tpl"#}
